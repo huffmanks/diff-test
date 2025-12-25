@@ -33,3 +33,37 @@
 .scrollbar::-webkit-scrollbar-thumb:active {
   background-color: #18181a;
 }
+
+#language-dropdown-btn-show {
+  anchor-name: --menu-anchor;
+}
+
+@position-try --br {
+  position-area: bottom span-right;
+}
+
+@position-try --tr {
+  position-area: top span-right;
+}
+
+#language-dropdown {
+  position-anchor: --menu-anchor;
+  position-area: bottom span-right;
+  position-try-fallbacks: --br, --tr;
+  inset-block: 2px;
+}
+
+@keyframes enter {
+  0% {
+    opacity: 0;
+    transform: translate3d(-1000px, -1000px, -1000px) scale3d(0.95, 0.95, 0.95) rotate(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotate(0);
+  }
+}
+
+.popover-menu:popover-open {
+  animation: enter 0.15s ease 0s 1 normal both;
+}

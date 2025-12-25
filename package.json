@@ -13,7 +13,6 @@
     "@git-diff-view/file": "^0.0.35",
     "@git-diff-view/react": "^0.0.35",
     "@tailwindcss/vite": "^4.1.18",
-    "highlight.js": "^11.11.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "tailwindcss": "^4.1.18"
