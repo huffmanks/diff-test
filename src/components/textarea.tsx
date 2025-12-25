@@ -1,13 +1,14 @@
 import { forwardRef, useRef, useState } from "react";
 
 interface Props {
+  id: string;
   label: string;
   placeholder: string;
   value: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function Textarea({ label, placeholder, value, setValue }: Props) {
+export default function Textarea({ id, label, placeholder, value, setValue }: Props) {
   const [isCopying, setIsCopying] = useState(false);
   const [isClearing, setIsClearing] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -67,7 +68,7 @@ export default function Textarea({ label, placeholder, value, setValue }: Props)
         <div className="flex items-center gap-2">
           <span className="text-xs text-zinc-400">{value.split("\n").length} lines</span>
           <div className="flex gap-1">
-            <button onClick={handleClear} className="group rounded p-1.5 transition-colors enabled:cursor-pointer enabled:hover:bg-zinc-600" disabled={!value} title="Clear textarea">
+            <button type="button" onClick={handleClear} className="group rounded p-1.5 transition-colors enabled:cursor-pointer enabled:hover:bg-zinc-600" disabled={!value} title="Clear textarea">
               {isClearing ? (
                 <svg
                   className="text-red-600 size-3.5"
@@ -102,7 +103,12 @@ export default function Textarea({ label, placeholder, value, setValue }: Props)
                 </svg>
               )}
             </button>
-            <button onClick={handleCopyToClipboard} className="group rounded p-1.5 transition-colors enabled:cursor-pointer enabled:hover:bg-zinc-600" disabled={!value} title="Copy to clipboard">
+            <button
+              type="button"
+              onClick={handleCopyToClipboard}
+              className="group rounded p-1.5 transition-colors enabled:cursor-pointer enabled:hover:bg-zinc-600"
+              disabled={!value}
+              title="Copy to clipboard">
               {isCopying ? (
                 <svg
                   className="size-3.5 text-green-600"
@@ -140,13 +146,15 @@ export default function Textarea({ label, placeholder, value, setValue }: Props)
       <div className="scrollbar relative flex h-80">
         <LineNumbers ref={lineNumbersRef} content={value || ""} />
         <textarea
+          id={id}
+          name={id}
           ref={textareaRef}
           value={value}
+          placeholder={placeholder}
+          spellCheck={false}
+          className="absolute top-0 right-0 bottom-0 left-14 z-10 resize-none bg-zinc-800 py-3 pr-5 pl-3 font-mono text-sm leading-6 outline-none"
           onChange={(e) => setValue(e.target.value)}
           onScroll={handleScroll}
-          placeholder={placeholder}
-          className="absolute top-0 right-0 bottom-0 left-14 z-10 resize-none bg-zinc-800 py-3 pr-5 pl-3 font-mono text-sm leading-6 outline-none"
-          spellCheck={false}
           style={{ tabSize: 2 }}
         />
       </div>
